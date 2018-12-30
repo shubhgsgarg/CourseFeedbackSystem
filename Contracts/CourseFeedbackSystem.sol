@@ -11,12 +11,12 @@ contract CourseFeedback{
   struct Feedback{
     uint candidateID;
     string name;
-    uint voteCount;
+    
   }
 
 
 
-  
+
   //voted
   mapping ( address => uint ) public voted;
   //mapping to store votes
