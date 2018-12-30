@@ -4,14 +4,14 @@ pragma solidity ^0.4.2;
 contract CourseFeedback{
 
     // Store Candidates Count
-  uint public candidatesCount=0;
+  uint public studentsCount=0;
 
 
     //structure to store candidate's details
   struct Feedback{
-    uint candidateID;
-    string name;
-    
+    uint studentID;
+    string studentname;
+
   }
 
 
@@ -19,8 +19,8 @@ contract CourseFeedback{
 
   //voted
   mapping ( address => uint ) public voted;
-  //mapping to store votes
-  mapping ( uint => uint ) public record;
+  //mapping to store feedback
+  mapping ( address => Feedback ) public feedbackRecord;
 
   //constructor
   constructor () public {
@@ -28,25 +28,22 @@ contract CourseFeedback{
   }
 
   //add candidates
-  function addCandidate () public {
+  function addStudent () public {
 
   }
 
 
-  //vote using private key        only Voter
-  function vote (uint _pk, uint _candidateId) public {
+  //give feedback using private key
+  function giveFeedback () public {
 
-      // require that they haven't voted before
-      require(voted[msg.sender]!=10);
-
-      // require a valid candidate
-      require(_candidateId > 0 && _candidateId <= candidatesCount);
+      // require that they haven't given feedback before
+      require();
 
 
   }
 
-  // check vote
-  function checkVote(uint _pk) public view returns (uint){
+  // check feedback
+  function checkFeedback(uint _pk) public view returns (uint){
 
   }
 
