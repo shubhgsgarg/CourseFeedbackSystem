@@ -3,48 +3,57 @@ pragma solidity ^0.4.2;
 
 contract CourseFeedback{
 
-    // Store Candidates Count
+  // Store Candidates Count
   uint public studentsCount=0;
+  // Store admin credentials
 
-
-    //structure to store candidate's details
+  //structure to store candidate's details
   struct Feedback{
     uint studentID;
     string studentname;
-
+    //feedback
   }
 
 
-
-
+  // mapping of all the students :studentsList
+  mapping ( => ) studentsList;
+  // mapping of hashes of pk/password with public key :passDB
+  mapping ( => ) passDB;
   //voted
-  mapping ( address => uint ) public voted;
+  mapping (  =>  ) public voted;
   //mapping to store feedback
-  mapping ( address => Feedback ) public feedbackRecord;
+  mapping (  =>  ) public feedbackRecord;
 
   //constructor
   constructor () public {
-
+    //initialise admin credentials
   }
 
-  //add candidates
+  //add students
   function addStudent () public {
-
+    // requires admin credentials
+    //add to studentsList
+    //update passDB
+    //increase studentsCount
   }
 
 
-  //give feedback using private key
+  //give feedback
   function giveFeedback () public {
-
-      // require that they haven't given feedback before
+      // requires that they are in studentsList
+      // requires they have pk/password
+      // requires that they haven't given feedback before
       require();
 
+      //add to feedbackRecord
+      // update voted
 
   }
 
   // check feedback
-  function checkFeedback(uint _pk) public view returns (uint){
-
+  function checkFeedback() public view returns (uint){
+      //require correct pasword/pk
+      //check feedbackRecord
   }
 
 
