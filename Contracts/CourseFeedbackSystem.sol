@@ -13,7 +13,7 @@ contract CourseFeedback{
   address admin;
 
   //structure to store candidate's details
-  struct student{
+  struct Student{
     uint studentID;
     string studentname;
     //feedback
@@ -27,7 +27,7 @@ contract CourseFeedback{
 
   //Mappings
   // mapping of all the students :studentsList
-  mapping (address=>student) studentsList;
+  mapping (address=>Student) studentsList;
 
   // mapping of hashes of pk/password with public key :passDB
   mapping ( => ) passDB;
@@ -50,8 +50,9 @@ contract CourseFeedback{
   }
   
   //add students
-  function addStudent (uint _studentid,string _studentname, ) onlyAdmin public {
-    // requires admin credentials
+  function addStudent (uint _studentid,string _studentname) onlyAdmin public {
+    //making a new student struct
+    Student temp=Student(_studentid,_studentname);
     //add to studentsList
     //update passDB
     //increase numberOfVotedStudents
