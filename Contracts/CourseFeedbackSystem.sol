@@ -5,12 +5,16 @@ contract CourseFeedback{
 
   // Store Candidates Count
   uint public studentsCount=0;
-
   // Store admin credentials
   address admin;
-
+  
+  modifier onlyAdmin() { 
+    require (msg.sender==admin); 
+    _; 
+  }
+  
   //structure to store candidate's details
-  struct student{
+  struct Student{
     uint studentID;
     string studentname;
     //feedback
@@ -33,7 +37,7 @@ contract CourseFeedback{
   mapping (address=>bool) public voted;
 
   //mapping to store feedback
-  mapping ( student => Feedback) public feedbackRecord;
+  mapping ( address => Feedback) public feedbackRecord;
 
   //constructor
   constructor() public {
@@ -48,32 +52,34 @@ contract CourseFeedback{
   function addStudent () onlyAdmin public {
     // requires admin credentials
     //add to studentsList
+    
     //update passDB
     //increase studentsCount
   }
 
 
   //give feedback
-  function giveFeedback () public {
+  function giveFeedback (int a, int b) public {
       // requires that they are in studentsList
       // requires they have pk/password
       // requires that they haven't given feedback before
-      require();
-
+      require(voted[msg.sender]==false);
       //add to feedbackRecord
+      Feedback temp = Feedback(a,b);
+      feedbackRecord[msg.sender] = temp;
       // update voted
+      voted[msg.sender]=true;
 
   }
 
   // check feedback
-  function checkFeedback() public view returns (uint){
-      //require correct pasword/pk
+  function checkFeedback() public view returns (Feedback){
+      //chekc if the student voted
+      require(voted[msg.sender]== true);
       //check feedbackRecord
+      return feedbackRecord[msg.sender];
+      
   }
 
-  modifier onlyAdmin() { 
-    require (msg.sender==admin); 
-    _; 
-  }
-  
+
 }
