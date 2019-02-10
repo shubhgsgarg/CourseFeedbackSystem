@@ -3,6 +3,7 @@ pragma solidity ^0.4.2;
 // This contract will be the backend smart contract for the course-feedback system, to interact with our blockchain
 contract CourseFeedback{
 
+
   // Store students Count
   uint public studentsCount;
 
@@ -11,7 +12,12 @@ contract CourseFeedback{
 
   // Store admin credentials
   address admin;
-
+  
+  modifier onlyAdmin() { 
+    require (msg.sender==admin); 
+    _; 
+  }
+  
   //structure to store candidate's details
   struct Student{
     uint studentID;
@@ -54,6 +60,7 @@ contract CourseFeedback{
     //making a new student struct
     Student temp=Student(_studentid,_studentname);
     //add to studentsList
+    
     //update passDB
     //increase numberOfVotedStudents
     numberOfVotedStudents++;
@@ -62,27 +69,27 @@ contract CourseFeedback{
 
 
   //give feedback
-  function giveFeedback () public {
+  function giveFeedback (int a, int b) public {
       // requires that they are in studentsList
       // requires they have pk/password
       // requires that they haven't given feedback before
-      require (voted[msg.sender]==false);
+      require(voted[msg.sender]==false);
       
       //add to feedbackRecord
+      Feedback temp = Feedback(a,b);
+      feedbackRecord[msg.sender] = temp;
       // update voted
       voted[msg.sender]=true;
   }
 
   // check feedback
-  function checkFeedback() public view returns (uint){
-      //require correct pasword/pk
+  function checkFeedback() public view returns (Feedback){
+      //chekc if the student voted
+      require(voted[msg.sender]== true);
       //check feedbackRecord
-      msg.sender
+      return feedbackRecord[msg.sender];
+      
   }
 
-  modifier onlyAdmin() { 
-    require (msg.sender==admin); 
-    _; 
-  }
-  
+
 }
