@@ -27,6 +27,8 @@ contract CourseFeedback{
 
   //Store the Feedback received from the form
   struct Feedback {
+    int q1;
+    int q2;
     //Question variables go here
   }
 
