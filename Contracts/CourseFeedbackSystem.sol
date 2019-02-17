@@ -27,8 +27,8 @@ contract CourseFeedback{
 
   //Store the Feedback received from the form
   struct Feedback {
-    int q1;
-    int q2;
+    uint q1;
+    uint q2;
     //Question variables go here
   }
 
@@ -48,6 +48,10 @@ contract CourseFeedback{
   constructor() public {
     //initialise admin credentials
     admin=msg.sender;
+    setNumberOfStudents(0);
+    addStudent(1,"Shubham");
+    addStudent(2,"Atharv");
+
   }
 
 
@@ -65,13 +69,13 @@ contract CourseFeedback{
 
     //update passDB
     //increase numberOfVotedStudents
-    numberOfVotedStudents++;
+    studentsCount++;
   }
 
 
 
   //give feedback
-  function giveFeedback (int a, int b) public {
+  function giveFeedback (uint a, uint b) public {
       // requires that they are in studentsList
       require(studentsList[msg.sender].validStud=true);
       // requires they have pk/password
@@ -93,6 +97,16 @@ contract CourseFeedback{
       //check feedbackRecord
       return feedbackRecord[msg.sender];
 
+  }
+
+  function getNoOfStudVoted() public returns (uint)
+  {
+    return numberOfVotedStudents;
+  }
+
+  function getTotalStud() public returns (uint)
+  {
+    return studentsCount;
   }
 
 
