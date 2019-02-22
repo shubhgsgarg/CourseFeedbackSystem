@@ -49,9 +49,8 @@ contract CourseFeedback{
     //initialise admin credentials
     admin=msg.sender;
     setNumberOfStudents(0);
-    addStudent(1,"Shubham",0xDF824dFb10e5E9089DcaA89c62111F75814F9C4a);
-    addStudent(2,"Atharv",0x26f5051531dC81F0108389e5b32755366Eff1C6f);
-
+    addStudent(1,"Shubham",web3.eth.account[1]);
+    addStudent(2,"Atharv",web3.eth.account[2]);
   }
 
 
