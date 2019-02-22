@@ -1,4 +1,4 @@
-pragma solidity ^0.4.2;
+pragma solidity >=0.4.21 <0.6.0;
 
 // This contract will be the backend smart contract for the course-feedback system, to interact with our blockchain
 contract CourseFeedback{
@@ -49,22 +49,22 @@ contract CourseFeedback{
     //initialise admin credentials
     admin=msg.sender;
     setNumberOfStudents(0);
-    addStudent(1,"Shubham");
-    addStudent(2,"Atharv");
+    addStudent(1,"Shubham",0xDF824dFb10e5E9089DcaA89c62111F75814F9C4a);
+    addStudent(2,"Atharv",0x26f5051531dC81F0108389e5b32755366Eff1C6f);
 
   }
 
 
-  function setNumberOfStudents (uint numberOfStudents) onlyAdmin {
+  function setNumberOfStudents (uint numberOfStudents) onlyAdmin public{
     //sets the number of students allowed to give reviews
     studentsCount=numberOfStudents;
   }
 
 
   //add students
-  function addStudent (uint _studentid,string _studentname) onlyAdmin public {
+  function addStudent (uint _studentid,string memory _studentname, address pk) onlyAdmin public {
     //making a new student struct
-    Student temp=Student(_studentid,_studentname,true);
+    studentsList[pk]=Student(_studentid,_studentname,true);
     //add to studentsList
 
     //update passDB
@@ -83,19 +83,18 @@ contract CourseFeedback{
       require(voted[msg.sender]==false);
 
       //add to feedbackRecord
-      Feedback temp = Feedback(a,b);
-      feedbackRecord[msg.sender] = temp;
+      feedbackRecord[msg.sender] = Feedback(a,b);
       // update voted
       voted[msg.sender]=true;
   }
 
 
   // check feedback
-  function checkFeedback() public view returns (Feedback){
+  function checkFeedback() public view returns (uint, uint){
       //chekc if the student voted
       require(voted[msg.sender]== true);
       //check feedbackRecord
-      return feedbackRecord[msg.sender];
+      return (feedbackRecord[msg.sender].q1,feedbackRecord[msg.sender].q2);
 
   }
 
