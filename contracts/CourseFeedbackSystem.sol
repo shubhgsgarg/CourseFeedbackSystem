@@ -74,7 +74,7 @@ contract CourseFeedback{
 
 
   //give feedback
-  function giveFeedback (uint a, uint b) public {
+  function giveFeedback (uint a, uint b) public returns(uint) {
       // requires that they are in studentsList
       require(studentsList[msg.sender].validStud=true);
       // requires they have pk/password
@@ -85,6 +85,7 @@ contract CourseFeedback{
       feedbackRecord[msg.sender] = Feedback(a,b);
       // update voted
       voted[msg.sender]=true;
+      return block.number;
   }
 
 
