@@ -48,9 +48,8 @@ contract CourseFeedback{
     //initialise admin credentials
     admin=msg.sender;
     setNumberOfStudents(0);
-    addStudent(1,"Shubham",0xDF824dFb10e5E9089DcaA89c62111F75814F9C4a);
-    addStudent(2,"Atharv",0x26f5051531dC81F0108389e5b32755366Eff1C6f);
-
+    addStudent(1,"Shubham",web3.eth.account[1]);
+    addStudent(2,"Atharv",web3.eth.account[2]);
   }
 
 
@@ -74,7 +73,7 @@ contract CourseFeedback{
 
 
   //give feedback
-  function giveFeedback (uint a, uint b) public {
+  function giveFeedback (uint a, uint b) public returns(uint) {
       // requires that they are in studentsList
       require(studentsList[msg.sender].validStud=true);
       // requires they have pk/password
@@ -85,6 +84,7 @@ contract CourseFeedback{
       feedbackRecord[msg.sender] = Feedback(a,b);
       // update voted
       voted[msg.sender]=true;
+      return block.number;
   }
 
 
@@ -108,3 +108,4 @@ contract CourseFeedback{
   }
 
 }
+
