@@ -16,10 +16,12 @@ contract CourseFeedback{
         _;
     }
 
+    //structure to store candidate's details
     struct Student{
     uint studentID;
     string studentname;
-    bool hasVotedOrNot;
+    bool validStud;
+    bool hasVoted;
     }
 
     //Store the Feedback received from the form
@@ -28,6 +30,13 @@ contract CourseFeedback{
         uint q2;
         //Question variables go here
     }
+
+    //Mappings
+    // mapping of all the students :studentsList
+    mapping (address=>Student) internal studentsList;
+    //voted
+    mapping (address=>bool) public voted;
+
 
     //constructor
     constructor() public {
@@ -38,8 +47,22 @@ contract CourseFeedback{
         addStudent(2,"Atharv",web3.eth.account[2]);
     }
 
-    function setNumberOfStudents (uint numberOfStudents) onlyAdmin public{
-        //sets the number of students allowed to give reviews
-        studentsCount=numberOfStudents;
+
+    function addStudent (uint _studentid,string memory _studentname) onlyAdmin public {
+      //add to studentsList
+      studentsList[msg.sender]=Student(_studentid,_studentname,true);
+      //increase studentsCount
+      studentsCount++;
     }
+
+    function giveFeedback (uint a, uint b) public returns(uint) {
+        // requires that they are in studentsList
+        require(studentsList[msg.sender].validStud=true);
+        // requires that they haven't given feedback before
+        require(voted[msg.sender]==false);
+
+
+    }
+
+
 }
