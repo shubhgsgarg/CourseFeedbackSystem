@@ -16,7 +16,6 @@ contract CourseFeedback{
     _;
   }
 
-
   //structure to store candidate's details
   struct Student{
     uint studentID;
@@ -107,6 +106,5 @@ contract CourseFeedback{
   {
     return studentsCount;
   }
-
 
 }
