@@ -47,15 +47,8 @@ contract CourseFeedback{
   constructor() public {
     //initialise admin credentials
     admin=msg.sender;
-    setNumberOfStudents(0);
-    addStudent(1,"Shubham",web3.eth.account[1]);
-    addStudent(2,"Atharv",web3.eth.account[2]);
-  }
-
-
-  function setNumberOfStudents (uint numberOfStudents) onlyAdmin public{
-    //sets the number of students allowed to give reviews
-    studentsCount=numberOfStudents;
+    addStudent(1,"Shubham",0x14723A09ACff6D2A60DcdF7aA4AFf308FDDC160C);
+    addStudent(2,"Atharv",0x4B0897b0513fdC7C541B6d9D7E929C4e5364D2dB);
   }
 
 
@@ -84,6 +77,7 @@ contract CourseFeedback{
       feedbackRecord[msg.sender] = Feedback(a,b);
       // update voted
       voted[msg.sender]=true;
+      numberOfVotedStudents++;
       return block.number;
   }
 
@@ -107,5 +101,9 @@ contract CourseFeedback{
     return studentsCount;
   }
 
-}
+  function checkValidStud() public returns (bool)
+  {
+      return studentsList[msg.sender].validStud;
+  }
 
+}
